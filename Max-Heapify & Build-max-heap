@@ -1,0 +1,43 @@
+#since the code at first gave an error I defined heap size here
+hs = 0
+
+#here I define parent and left/right node indices of a given node
+def parent(i):
+    return i//2
+
+def left(i):
+    return 2*i
+
+def right(i):
+    return 2*i+1
+
+def max_heapify(A, i):
+    l = left(i)
+    r = right(i)
+    #function checks for a given node if it has a left child and whether this left child is bigger than the node itself
+    if l <= hs and A[l] > A[i]:
+        #if it is bigger the left child's indice is saved
+        largest = l
+    else:
+        #otherwise the node itself is saved to be the largest
+        largest = i
+        #then if the node has a right child, the program compares it to the saved value from before
+    if r <= hs and A[r] > A[largest]:
+        #if the right child is bigger it is saved as largest
+        largest = r
+    #then if the largest node is not the parent node, function swaps them
+    if largest != i:
+        A[i], A[largest] = A[largest], A[i]
+        #then the function recursively calls itself to check if the node that moves below in the tree violates the heap property
+        max_heapify(A, largest)
+    return A
+
+#runs the first function for every node except for the last row to see if their children violate the heap principle and to heapify them
+def build_max_heap(A):
+    hs = len(A)
+    for i in range(len(A)//2, 1, -1):
+        max_heapify(A, i)
+        
+List = [39, 85, 85, 16, 49, 7, 49, 92, 76, 15, 21, 30, 29, 31, 28]
+
+build_max_heap(List)
