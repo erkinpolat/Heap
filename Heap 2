@@ -1,0 +1,77 @@
+#these are the functions we know from the last class
+
+def heapify(A, i):
+    largest = i
+    l = 2 * i
+    r = 2 * i + 1
+    if l < len(A) and A[i] < A[l]: 
+        largest = l 
+    if r < len(A) and A[largest] < A[r]: 
+        largest = r 
+    if largest != i: 
+        A[i],A[largest] = A[largest],A[i]
+        heapify(A, largest)
+        
+        
+List = [39, 85, 85, 16, 49, 7, 49, 92, 76, 15, 21, 30, 29, 31, 28]
+print(List)
+heapify(List, 0)
+print(List)
+
+def build_max_heap(A):
+    k = len(A)
+    for i in range(len(A)//2, -1, -1):
+        heapify(A, i)
+        
+List = [39, 85, 85, 16, 49, 7, 49, 92, 76, 15, 21, 30, 29, 31, 28]   
+build_max_heap(List)
+print(List)
+
+
+######################
+
+#just takes the first node
+def heap_maximum(A):
+    return(A[0])
+
+#heappop
+#copies the first node into an outer variable, swaps the first node with the last node, deletes the new last node, then heapifies from the new first node
+def heap_pop(A):
+    max = A[0]
+    A[0], A[len(A)-1] = A[len(A)-1], A[0]
+    del(A[len(A)-1])
+    heapify(A, 0)
+    return(max)
+    
+List = [39, 85, 85, 16, 49, 7, 49, 92, 76, 15, 21, 30, 29, 31, 28]   
+build_max_heap(List)
+
+for i in range(0, 15):
+    print(heap_pop(List))
+    print(List)
+
+#####################
+
+List = [39, 85, 85, 16, 49, 7, 49, 92, 76, 15, 21, 30, 29, 31, 28]
+build_max_heap(List)
+
+#heappush
+#adds a new key to the beginning, does heapify
+def heap_push(A, x):
+    A = [x] + A
+    heapify(A, 0)
+    return(A)
+
+
+heap_push(List, 13)
+
+#############################
+
+#heapify(heapify of the heapq module takes a list and turns it into a heap, this is similar to our build_max_heap function rather than our heapify function)
+
+def heapq_heapify(A):
+    build_max_heap(A)
+    
+List = [39, 85, 85, 16, 49, 7, 49, 92, 76, 15, 21, 30, 29, 31, 28]
+heapq_heapify(List)
+print(List)
